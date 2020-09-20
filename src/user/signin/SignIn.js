@@ -5,6 +5,7 @@ import "./signin.styles.scss";
 import { signIn, authenticate, isAuthenticated } from '../../auth/helper';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
+import { ShowToastMessage } from '../utils/utils';
 
 
 const SignIn = () => {
@@ -19,7 +20,7 @@ const SignIn = () => {
         didRedirect: false
     })
 
-    const {name, email, password, success, error, loading, didRedirect} = values;
+    const {email, password, success, error, loading} = values;
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -41,12 +42,15 @@ const SignIn = () => {
                     console.log("token added");
                     setValues({
                         ...values,
+                        success: true,
+                        error: false,
                         didRedirect: true
                     })
                 })
             }else{
                 setValues({
                     ...values,
+                    error: true,
                     loading: false
                 })
             }
@@ -60,45 +64,6 @@ const SignIn = () => {
                 <Redirect to="/" />
             )
         }
-    }
-
-    const loadingMessage = () => {
-        return(
-            loading && (
-                <div className="alert-alert-info">
-                    <h2>LOADING...</h2>
-                </div>
-            )
-        )
-    }
-    const successMessage = () => {
-        return(
-            <div className="row">
-                <div className="col-md-6 offset-sm-3 text-left">
-                    <div 
-                        className="alert alert-success"
-                        style={{display: success ? "" : "none"}}
-                        >
-                        signed up successfully.<Link to="/signin">Login Here</Link>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    const errorMessage = () => {
-        return(
-            <div className="row">
-                <div className="col-md-6 offset-sm-3 text-left">
-                    <div 
-                        className="alert alert-danger"
-                        style={{display: error ? "" : "none"}}
-                        >
-                        check all fields.
-                    </div>
-                </div>
-            </div>
-        )
     }
 
     const signInForm = () => {
@@ -134,9 +99,24 @@ const SignIn = () => {
 
     return (
         <div>
-            {loadingMessage()}
-            {successMessage()}
-            {errorMessage()}
+            <ShowToastMessage 
+                value={loading}
+                customIdValue="loadingId"
+                toastMessage="loading..."
+                color="#000000"
+            />
+            <ShowToastMessage 
+                value={success}
+                customIdValue="successId"
+                toastMessage="Signed in successfully.."
+                color="#000000"
+            />
+            <ShowToastMessage 
+                value={error}
+                customIdValue="errorId"
+                toastMessage="Check all fields."
+                color="red"
+            />
             {signInForm()}
             {/* <p className="text-center">{JSON.stringify(values)}</p> */}
             {performRedirect()}

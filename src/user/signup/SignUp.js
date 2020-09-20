@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 import './signup.styles.scss';
 import { signUp } from '../../auth/helper';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
+import { ShowToastMessage } from '../utils/utils';
 
 
 const SignUp = () => {
@@ -75,20 +78,26 @@ const SignUp = () => {
         )
     }
 
-    const errorMessage = () => {
-        return(
-            <div className="row">
-                <div className="col-md-6 offset-sm-3 text-left">
-                    <div 
-                        className="alert alert-danger"
-                        style={{display: error ? "" : "none"}}
-                        >
-                        check all fields.
-                    </div>
-                </div>
-            </div>
-        )
-    }
+    // const errorMessage = () => {
+    //     const customId = 'errorId';
+    //     return(   
+    //             <div>
+    //                 {
+    //                  error && toast("check all fields.", {
+    //                             position:"top-right",
+    //                             className:"errorMessage",
+    //                             toatId:customId,
+    //                             autoClose: 5000,
+    //                             hideProgressBar: true,
+    //                             closeOnClick: true,
+    //                             pauseOnHover: false,
+    //                             draggable: true,
+    //                             progress: undefined,
+    //                         })
+    //                 }
+    //             </div>
+    //     )
+    // }
 
     const signUpForm = () => {
         return(
@@ -138,7 +147,12 @@ const SignUp = () => {
     return (
         <div>
             {successMessage()}
-            {errorMessage()}
+            <ShowToastMessage 
+                value={error}
+                customIdValue="errorId"
+                toastMessage="Check all fields."
+                color="red"
+            />
             {signUpForm()}
             {/* <p className="text-black text-center">
                 {JSON.stringify(values)}

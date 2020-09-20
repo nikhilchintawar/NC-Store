@@ -1,3 +1,19 @@
+.successMessage{
+    color: #000000;
+    background-color: #ffffff;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.errorMessage{
+    color: red;
+    background-color: #ffffff;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
 .title {
     margin-top: 2rem;
 }

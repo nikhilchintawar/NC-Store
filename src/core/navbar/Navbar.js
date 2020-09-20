@@ -72,16 +72,16 @@ const Menu = ({history, path}) => {
                 }
                 {
                     isAuthenticated() && (
-                            <Link
-                            className="option nav-link text-warning"
-                            onClick={() => {
-                                signOut(() => {
-                                    history.push("/signin")
-                                })
-                            }}
+                            <span
+                                className="option nav-link text-warning"
+                                onClick={() => {
+                                    signOut(() => {
+                                        history.push("/signin")
+                                    })
+                                }}
                             >
                                 Sign Out
-                            </Link>
+                            </span>
                             
                     )
                 }

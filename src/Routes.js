@@ -1,5 +1,9 @@
 import React from 'react';
 import {Switch, Route} from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import {ToastContainer} from 'react-toastify';
+
+
 import Home from "./core/Home";
 import SignUp from './user/signup/SignUp';
 import PrivateRoute from './auth/helper/PrivateRoute';
@@ -13,6 +17,7 @@ const Routes = () => {
     return (
         <div>
             <Navbar />
+            <ToastContainer />
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/signup" component={SignUp} />
