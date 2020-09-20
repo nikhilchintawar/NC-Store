@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-import Base from "../core/Base";
-import { signIn, authenticate, isAuthenticated } from '../auth/helper';
+import "./signin.styles.scss";
+import { signIn, authenticate, isAuthenticated } from '../../auth/helper';
+import FormInput from '../../components/form-input/FormInput';
+import CustomButton from '../../components/custom-button/CustomButton';
 
 
 const SignIn = () => {
@@ -19,8 +21,12 @@ const SignIn = () => {
 
     const {name, email, password, success, error, loading, didRedirect} = values;
 
-    const handleChange = name => event => {
-        setValues({...values, error: false, [name]: event.target.value})
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        setValues(prevState => ({
+            ...prevState,
+            error:false,
+            [name]:value}))
     }
 
     const handleSubmit = (event) => {
@@ -99,26 +105,26 @@ const SignIn = () => {
         return(
             <div className="row">
                 <div className="col-md-6 offset-sm-3 text-left">
+                <h2 className='title'>I do not have a account</h2>
+                <span><Link to='/signup'>Sign up</Link> here.</span>
                     <form>
-                        <div className="form-group">
-                            <label className="text-light">Email</label>
-                            <input 
-                                type="text" 
-                                value={email} 
-                                onChange={handleChange("email")} 
-                                className="form-control"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label className="text-light">Password</label>
-                            <input 
-                                type="password" 
-                                value={password} 
-                                onChange={handleChange("password")} 
-                                className="form-control"
-                            />
-                        </div>
-                        <button onClick={handleSubmit} className="btn btn-success btn-block">SUBMIT</button>
+                        <FormInput
+                            type='text'
+                            name='email'
+                            value={email}
+                            onChange={handleChange}
+                            label='Email'
+                            required
+                        />
+                        <FormInput
+                            type='password'
+                            name='password'
+                            value={password}
+                            onChange={handleChange}
+                            label='Password'
+                            required
+                        />
+                        <CustomButton onClick={handleSubmit}>SIGN IN</CustomButton>
                     </form>
                 </div>
             </div>
@@ -127,14 +133,14 @@ const SignIn = () => {
 
 
     return (
-        <Base title="welcome to sign in page." description="T-shirt store.">
+        <div>
             {loadingMessage()}
             {successMessage()}
             {errorMessage()}
             {signInForm()}
-            <p className="text-center">{JSON.stringify(values)}</p>
+            {/* <p className="text-center">{JSON.stringify(values)}</p> */}
             {performRedirect()}
-        </Base>
+        </div>
     );
 };
 

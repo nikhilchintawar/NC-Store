@@ -27,7 +27,7 @@ const Home = () => {
     }, [])
 
     return (
-        <Base title="Home Page" description="Welcome to Tshirt store">
+        <div>
             <h1>Home Component</h1>
             <div className="row">
                 {
@@ -40,7 +40,7 @@ const Home = () => {
                     })
                 }
             </div>
-        </Base>
+        </div>
     );
 };
 

@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-import Base from "../core/Base";
-import {signUp} from "../auth/helper/index";
+import './signup.styles.scss';
+import { signUp } from '../../auth/helper';
+import FormInput from '../../components/form-input/FormInput';
+import CustomButton from '../../components/custom-button/CustomButton';
+
 
 const SignUp = () => {
 
@@ -10,18 +13,29 @@ const SignUp = () => {
         name: "",
         email: "",
         password: "",
+        confirmPassword:"",
         error: "",
         success: false
     })
 
-    const {name, email, password, success, error} = values;
+    const {name, email, password, success, error, confirmPassword} = values;
 
-    const handleChange = name => event => {
-        setValues({...values, error: false, [name]: event.target.value})
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        setValues(prevState => ({
+            ...prevState,
+            error:false,
+            [name]:value}))
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if(password !== confirmPassword){
+            alert("Please check your password, Password doesn't match.");
+            return;
+        }
+
         setValues({...values, error: false})
         signUp({name, email, password})
             .then(data => {
@@ -78,37 +92,43 @@ const SignUp = () => {
 
     const signUpForm = () => {
         return(
-            <div className="row">
+            <div className="signup">
                 <div className="col-md-6 offset-sm-3 text-left">
+                <p className="title">*If you already have an account <Link to='/signin'>Sign In</Link> here.</p>
                     <form>
-                        <div className="form-group">
-                            <label className="text-light">Name</label>
-                            <input 
-                                type="text" 
-                                value={name} 
-                                onChange={handleChange("name")} 
-                                className="form-control"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label className="text-light">Email</label>
-                            <input 
-                                type="text" 
-                                value={email} 
-                                onChange={handleChange("email")} 
-                                className="form-control"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label className="text-light">Password</label>
-                            <input 
-                                type="password" 
-                                value={password} 
-                                onChange={handleChange("password")} 
-                                className="form-control"
-                            />
-                        </div>
-                        <button onClick={handleSubmit} className="btn btn-success btn-block">SUBMIT</button>
+                        <FormInput
+                            type='text'
+                            name='name'
+                            value={name}
+                            onChange={handleChange}
+                            label='Display Name'
+                            required
+                        />
+                        <FormInput
+                            type='text'
+                            name='email'
+                            value={email}
+                            onChange={handleChange}
+                            label='Email'
+                            required
+                        />
+                        <FormInput
+                            type='password'
+                            name='password'
+                            value={password}
+                            onChange={handleChange}
+                            label='Password'
+                            required
+                        />
+                        <FormInput
+                            type='password'
+                            name='confirmPassword'
+                            value={confirmPassword}
+                            onChange={handleChange}
+                            label='Confirm Password'
+                            required
+                        />
+                        <CustomButton onClick={handleSubmit}>SUBMIT</CustomButton>
                     </form>
                 </div>
             </div>
@@ -116,14 +136,14 @@ const SignUp = () => {
     }
 
     return (
-        <Base title="Sign Up page" description="A sign up for user">
+        <div>
             {successMessage()}
             {errorMessage()}
             {signUpForm()}
-            <p className="text-white text-center">
+            {/* <p className="text-black text-center">
                 {JSON.stringify(values)}
-            </p>
-        </Base>
+            </p> */}
+        </div>
     );
 };
 
