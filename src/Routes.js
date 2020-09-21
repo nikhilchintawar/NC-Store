@@ -4,13 +4,14 @@ import "react-toastify/dist/ReactToastify.css";
 import {ToastContainer} from 'react-toastify';
 
 
-import Home from "./core/Home";
+import Shop from "./core/Shop";
 import SignUp from './user/signup/SignUp';
 import PrivateRoute from './auth/helper/PrivateRoute';
 import UserDashboard from './user/UserDashboard';
 import SignIn from './user/signin/SignIn';
 import Cart from './core/Cart';
 import Navbar from './core/navbar/Navbar';
+import Directory from './core/directory/Directory';
 
 
 const Routes = () => {
@@ -19,7 +20,8 @@ const Routes = () => {
             <Navbar />
             <ToastContainer />
             <Switch>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/" component={Directory} />
+                <Route exact path="/shop" component={Shop} />
                 <Route exact path="/signup" component={SignUp} />
                 <Route exact path="/signin" component={SignIn} />
                 <Route exact path="/cart" component={Cart} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import Menu from "./Menu";
+import Directory from "./directory/Directory";
 
 const Base = ({
     title="My Title",
@@ -9,7 +9,7 @@ const Base = ({
 }) => {
     return (
         <div>
-        <Menu />
+        <Directory />
             <div className="container-fluid">
                 <div className="jumbotron bg-dark text-white text-center">
                     <h2 className="display-4">{title}</h2>

@@ -25,10 +25,10 @@ const Menu = ({history, path}) => {
             <div className="options">
                     <Link 
                         className="option" 
-                        to="/" 
-                        style={currentTab(history, "/")}
+                        to="/shop" 
+                        style={currentTab(history, "/shop")}
                     >
-                        Home
+                        Shop
                     </Link>
                 {
                     isAuthenticated() && (

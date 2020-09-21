@@ -4,7 +4,7 @@ import {getProducts} from './helper/CoreApiCalls';
 import Base from './Base';
 import Card from './Card';
 
-const Home = () => {
+const Shop = () => {
 
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(false);
@@ -44,4 +44,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Shop;
