@@ -3,6 +3,7 @@ import {Link, withRouter} from "react-router-dom";
 
 import "./navbar.styles.scss";
 import { signOut, isAuthenticated } from '../../auth/helper';
+import CartIcon from '../../components/cart-icon/CartIcon';
 
 
 const currentTab = (history, path) => {
@@ -40,13 +41,9 @@ const Menu = ({history, path}) => {
                     >
                         Dashboard
                     </Link>
-                    <Link 
-                        className="option" 
-                        to="/cart" 
-                        style={currentTab(history, "/cart")}
-                    >
-                        Cart
-                    </Link>
+                        
+                    <CartIcon />
+                    
                     </>
                     )
                 }
