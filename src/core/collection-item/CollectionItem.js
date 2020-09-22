@@ -34,8 +34,7 @@ const CollectionItem = ({product}) => {
 
     const addToCart = () => {
         if(isAuthenticated()){
-            addItemToCart(product, () => {})
-            console.log('added to cart');         
+            addItemToCart(product)      
         }else{
             console.log('login please');    
         }

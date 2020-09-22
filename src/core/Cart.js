@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Base from "./Base";
-import Card from './Card';
+import Card from './card/Card';
 import { loadCart } from './helper/CartHelper';
 import PaymentB from './PaymentB';
 
@@ -34,17 +33,9 @@ const Cart = () => {
         )
     }
 
-    const loadCheckout = () => {
-        return (
-            <div>
-                <h1>loadCheckout</h1>
-            </div>
-        )
-    }
-
 
     return (
-        <Base title="cart page" description="cart ">
+        
             <div className="row text-center">
                 <div className="col-6">
                     {products.length > 0 ? loadAllProducts(products) : <h4>No products</h4>}
@@ -53,7 +44,7 @@ const Cart = () => {
                     {products.length > 0 ? <PaymentB products={products} setReload={setReload} /> : <h3>Please login or something in cart.</h3>}
                 </div>
             </div>
-        </Base>
+        
     );
 };
 

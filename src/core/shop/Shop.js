@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import {getProducts} from './helper/CoreApiCalls';
-import Card from './Card';
-import CollectionItem from './collection-item/CollectionItem';
+import './shop.styles.scss';
+import {getProducts} from '../helper/CoreApiCalls';
+import Card from '../card/Card';
 
 const Shop = () => {
 
@@ -29,14 +29,17 @@ const Shop = () => {
 
     return (
         <div>
-            <h1>Home Component</h1>
-            <div className="row">
+            <h1>SHOP PAGE</h1>
+            <div className='shop-collection'>
                 {
                     products.map((product, index) => {
                         return(
-                            <div key={index} className="col-4 mb-4">
-                                <CollectionItem product={product} />
-                            </div>
+                                <Card
+                                key={index} 
+                                product={product}
+                                addtoCart={true}
+                                removeFromCart={false}
+                                />
                         )
                     })
                 }
