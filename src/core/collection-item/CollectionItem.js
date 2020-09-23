@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
 
 import './collection-item.styles.scss';
 import { isAuthenticated } from '../../auth/helper';
 import { addItemToCart } from '../helper/CartHelper';
 import CustomButton from '../../components/custom-button/CustomButton';
-import { Link } from 'react-router-dom';
 
 
-const CollectionItem = ({product}) => {
+const CollectionItem = ({product, match}) => {
 
     const [category, setCategory] = useState('');
 
@@ -40,9 +40,11 @@ const CollectionItem = ({product}) => {
         }
     }
 
+
     return (
         <div className='collection-item'>
-            <Link to={`/${category.linkUrl}`} className="category">{category.name}</Link>
+            {/* <Link to={`${match.path}/${category.name}`} className="category">{category.name}</Link> */}
+            <div className="category">{category.name}</div>
             <div
                 className='image'
                 style={{
@@ -61,4 +63,4 @@ const CollectionItem = ({product}) => {
     );
 };
 
-export default CollectionItem;
+export default withRouter(CollectionItem);

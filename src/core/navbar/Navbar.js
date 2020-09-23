@@ -18,6 +18,9 @@ const currentTab = (history, path) => {
 }
 
 const Navbar = ({history}) => {
+    
+    const {user} = isAuthenticated()
+
     return (
         <div className="navbar">
             <Link className="logo-container" to="/">
@@ -26,8 +29,8 @@ const Navbar = ({history}) => {
             <div className="options">
                     <Link 
                         className="option" 
-                        to="/shop" 
-                        style={currentTab(history, "/shop")}
+                        to="/" 
+                        style={currentTab(history, "/")}
                     >
                         Shop
                     </Link>
@@ -36,8 +39,8 @@ const Navbar = ({history}) => {
                     <>
                     <Link 
                         className="option" 
-                        to="/user/dashboard" 
-                        style={currentTab(history, "/user/dashboard")}
+                        to={`/dashboard/${user.name}`}
+                        style={currentTab(history, `/dashboard/${user.name}`)}
                     >
                         Dashboard
                     </Link>

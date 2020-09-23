@@ -28,7 +28,8 @@ const Shop = () => {
 
     return (
         <div>
-            <h1>SHOP PAGE</h1>
+
+            <h1 style={{textAlign: 'center'}}>SHOP PAGE</h1>
             <div className='shop-collection'>
                 {
                     products.map((product, index) => {

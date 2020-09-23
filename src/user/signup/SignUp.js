@@ -76,26 +76,6 @@ const SignUp = () => {
         )
     }
 
-    // const errorMessage = () => {
-    //     const customId = 'errorId';
-    //     return(   
-    //             <div>
-    //                 {
-    //                  error && toast("check all fields.", {
-    //                             position:"top-right",
-    //                             className:"errorMessage",
-    //                             toatId:customId,
-    //                             autoClose: 5000,
-    //                             hideProgressBar: true,
-    //                             closeOnClick: true,
-    //                             pauseOnHover: false,
-    //                             draggable: true,
-    //                             progress: undefined,
-    //                         })
-    //                 }
-    //             </div>
-    //     )
-    // }
 
     const signUpForm = () => {
         return(
