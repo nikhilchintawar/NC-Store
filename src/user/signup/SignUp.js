@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
 
 import './signup.styles.scss';
 import { signUp } from '../../auth/helper';

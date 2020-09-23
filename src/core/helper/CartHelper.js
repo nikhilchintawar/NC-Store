@@ -38,7 +38,6 @@ const loadCart = () => {
     }
 }
 
-// TODO: debug the map 
 const removeItemFromCart = (productId) => {
     let cart = []
 
@@ -46,8 +45,6 @@ const removeItemFromCart = (productId) => {
         if(localStorage.getItem("cart")){
             cart = JSON.parse(localStorage.getItem("cart"))
         }
-        console.log(cart)
-        console.log(productId)
         const existingCartItem = cart.find(
             cartItem => cartItem.id === productId
         );
@@ -66,21 +63,6 @@ const removeItemFromCart = (productId) => {
     return cart;
 }
 
-// const removeItemFromCart = (cartItems, cartItemToRemove) => {
-//     const existingCartItem = cartItems.find(
-//       cartItem => cartItem.id === cartItemToRemove.id
-//     );
-  
-//     if (existingCartItem.quantity === 1) {
-//       return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
-//     }
-  
-//     return cartItems.map(cartItem =>
-//       cartItem.id === cartItemToRemove.id
-//         ? { ...cartItem, quantity: cartItem.quantity - 1 }
-//         : cartItem
-//     );
-//   };
 
 const cartEmpty = next => {
     if(typeof window !== undefined){
@@ -95,15 +77,45 @@ const filterItemFromCart =(cartItems, item)=> cartItems.filter(
     cartItem => cartItem.id !== item.id
   );
   
-const getCartItemsCount = cartItems => cartItems.reduce(
+const clearItemFromCart = (item) => {
+    let cart = []
+
+    if(typeof window !== undefined){
+        if(localStorage.getItem("cart")){
+            cart = JSON.parse(localStorage.getItem("cart"))
+        }
+    }
+
+    cart = filterItemFromCart(cart, item)
+    localStorage.setItem("cart", JSON.stringify(cart))
+    return;
+}
+
+const getCartItemsCount = () => {
+    let cart = []
+    if(typeof window !== undefined){
+        if(localStorage.getItem("cart")){
+            cart = JSON.parse(localStorage.getItem("cart"))
+        }
+    }
+    return cart.reduce(
     (accumalatedQuantity, cartItem) =>
       accumalatedQuantity + cartItem.quantity,
     0
-  );
+    )
+};
   
-const getCartTotal = cartItems => cartItems.reduce(
+const getCartTotal = () => {
+    let cart = []
+    if(typeof window !== undefined){
+        if(localStorage.getItem("cart")){
+            cart = JSON.parse(localStorage.getItem("cart"))
+        }
+    }
+    return cart.reduce(
     (accumalatedQuantity, cartItem) => accumalatedQuantity + cartItem.quantity * cartItem.price, 
     0
   )
+}
 
-export {addItemToCart, loadCart, removeItemFromCart, cartEmpty, filterItemFromCart, getCartItemsCount, getCartTotal}
+export {addItemToCart, loadCart, removeItemFromCart, cartEmpty, filterItemFromCart, clearItemFromCart, getCartItemsCount, getCartTotal}

@@ -17,7 +17,7 @@ const CollectionItem = ({product}) => {
     const productPrice = product ? product.price : "Default price"
     const imageUrl = product ? product.image : `https://images.unsplash.com/photo-1592500624072-2d3229dfed53?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60`
 
-    console.log(product.category)
+    // console.log(product.category)
 
     const getCategory = () => {
         return fetch(`${product.category}`, {

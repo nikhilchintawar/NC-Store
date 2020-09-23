@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
 
-import { cartEmpty } from './helper/CartHelper';
+import { cartEmpty, getCartTotal } from './helper/CartHelper';
 import {getToken, processPayment} from "./helper/PaymentHelper";
 import {createOrder} from "./helper/OrderHelper";
-import {isAuthenticated, signout, signOut} from "../auth/helper/index";
+import {isAuthenticated, signOut} from "../auth/helper/index";
 
 
 
@@ -50,13 +50,6 @@ const PaymentB = ({
         getTokenFromHelper(userId, token)
     },[])
 
-    const getAmount = () => {
-        let amount = 0;
-        products.map(p => (
-            amount = amount + parseInt(p.price)
-        ))
-        return amount;
-    }
 
     const onPurchase = () => {
         setInfo({loading: true})
@@ -67,7 +60,7 @@ const PaymentB = ({
                                 nonce = data.nonce;
                                 const paymentData = {
                                     paymentMethodNonce: nonce,
-                                    amount: getAmount()
+                                    amount: getCartTotal()
                                 }
                                 processPayment(userId, token, paymentData)
                                     .then(response => {
@@ -149,7 +142,7 @@ const PaymentB = ({
 
     return (
         <div>
-            <h3>Your amount is ${getAmount()}</h3>
+            <h3>Your amount is ${getCartTotal()}</h3>
             {shownDropInButton()}
         </div>
     );

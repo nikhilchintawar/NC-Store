@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, } from 'react';
 import {Link, withRouter} from "react-router-dom";
 
 import "./navbar.styles.scss";
@@ -17,7 +17,7 @@ const currentTab = (history, path) => {
     }
 }
 
-const Menu = ({history, path}) => {
+const Navbar = ({history}) => {
     return (
         <div className="navbar">
             <Link className="logo-container" to="/">
@@ -88,4 +88,4 @@ const Menu = ({history, path}) => {
     );
 };
 
-export default withRouter(Menu);
+export default withRouter(Navbar);

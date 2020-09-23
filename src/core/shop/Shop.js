@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './shop.styles.scss';
 import {getProducts} from '../helper/CoreApiCalls';
-import Card from '../card/Card';
+import CollectionItem from '../collection-item/CollectionItem';
 
 const Shop = () => {
 
@@ -12,7 +12,6 @@ const Shop = () => {
     const loadAllProducts = () => {
         getProducts()
             .then(data => {
-                console.log(data)
                 if(data.error){
                     console.log(error)
                     setError(data.error)
@@ -34,12 +33,7 @@ const Shop = () => {
                 {
                     products.map((product, index) => {
                         return(
-                                <Card
-                                key={index} 
-                                product={product}
-                                addtoCart={true}
-                                removeFromCart={false}
-                                />
+                            <CollectionItem key={index} product={product} />
                         )
                     })
                 }

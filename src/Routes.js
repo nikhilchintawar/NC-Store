@@ -9,7 +9,7 @@ import SignUp from './user/signup/SignUp';
 import PrivateRoute from './auth/helper/PrivateRoute';
 import UserDashboard from './user/UserDashboard';
 import SignIn from './user/signin/SignIn';
-import Cart from './core/Cart';
+import Cart from './core/cart/Cart';
 import Navbar from './core/navbar/Navbar';
 import Directory from './core/directory/Directory';
 
