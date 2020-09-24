@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 import './collection-item.styles.scss';
 import { isAuthenticated } from '../../auth/helper';
 import { addItemToCart } from '../helper/CartHelper';
 import CustomButton from '../../components/custom-button/CustomButton';
+import Modal from '../../modal/Modal';
+import SignInModal from '../../user/signin-modal/SignInModal';
 
 
 const CollectionItem = ({product, match}) => {
 
     const [category, setCategory] = useState('');
+    const [isSignedIn, setIsSignedIn] = useState(false)
 
     const productName = product ? product.name : "coding Ninja"
     const productDescription = product ? product.description : "coding Ninja description"
@@ -18,6 +21,8 @@ const CollectionItem = ({product, match}) => {
     const imageUrl = product ? product.image : `https://images.unsplash.com/photo-1592500624072-2d3229dfed53?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60`
 
     // console.log(product.category)
+
+    const toggleIsSignedIn = () => setIsSignedIn(!isSignedIn)
 
     const getCategory = () => {
         return fetch(`${product.category}`, {
@@ -36,7 +41,7 @@ const CollectionItem = ({product, match}) => {
         if(isAuthenticated()){
             addItemToCart(product)      
         }else{
-            console.log('login please');    
+           console.log('please sign in.')
         }
     }
 
@@ -44,6 +49,9 @@ const CollectionItem = ({product, match}) => {
     return (
         <div className='collection-item'>
             {/* <Link to={`${match.path}/${category.name}`} className="category">{category.name}</Link> */}
+            {
+                isSignedIn && <Modal><div className="signin-modal"><SignInModal toggleModal={toggleIsSignedIn} /></div></Modal>
+            }
             <div className="category">{category.name}</div>
             <div
                 className='image'
@@ -56,7 +64,7 @@ const CollectionItem = ({product, match}) => {
                 <span className='name'>{productName}</span>
                 <span className='price'>{productPrice}</span>
             </div>
-            <CustomButton onClick={() => addToCart()} inverted>
+            <CustomButton onClick={() => isSignedIn ? addToCart() : toggleIsSignedIn()} inverted>
                 Add to cart
             </CustomButton>
     </div>
