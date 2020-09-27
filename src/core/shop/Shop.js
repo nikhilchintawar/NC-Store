@@ -7,22 +7,23 @@ import CollectionItem from '../collection-item/CollectionItem';
 const Shop = () => {
 
     const [products, setProducts] = useState([]);
-    const [error, setError] = useState(false);
+    // const [error, setError] = useState(false);
 
-    const loadAllProducts = () => {
-        getProducts()
-            .then(data => {
-                if(data.error){
-                    console.log(error)
-                    setError(data.error)
-                }else{
-                    setProducts(data);
-                }
-            })
-            .catch(error => console.log(error))
-    }
 
     useEffect(() => {
+        const loadAllProducts = () => {
+            getProducts()
+                .then(data => {
+                    if(data.error){
+                        // setError(data.error)
+                        console.log(data.error)
+                    }else{
+                        setProducts(data);
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+
         loadAllProducts()
     }, [])
 

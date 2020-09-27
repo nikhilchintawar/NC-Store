@@ -27,28 +27,33 @@ const PaymentB = ({
     const userId = isAuthenticated && isAuthenticated().user.id;
     const token = isAuthenticated && isAuthenticated().token;
 
-    const getTokenFromHelper = (userId, token) => {
-        getToken(userId, token)
-            .then(info => {
-                console.log(info)
-                if(info.error){
-                    setInfo({
-                        ...info,
-                        error: info.error
-                    })
-                    signOut(() => {
-                        return <Redirect to="/" />
-                    })
-                }else{
-                    const clientToken = info.clientToken;
-                    setInfo({clientToken});
-                }
-            })
-    }
 
     useEffect(() => {
+        let isSubscribed = false;
+        const getTokenFromHelper = (userId, token) => {
+            getToken(userId, token)
+                .then(info => {
+                    console.log(info)
+                    if(info.error){
+                        if(!isSubscribed){
+                            setInfo({
+                                ...info,
+                                error: info.error
+                            })
+                        }
+                        signOut(() => {
+                            return <Redirect to="/" />
+                        })
+                    }else{
+                        const clientToken = info.clientToken;
+                        setInfo({clientToken});
+                    }
+                })
+        }
+
         getTokenFromHelper(userId, token)
-    },[])
+        return () => (isSubscribed = true)
+    },[userId, token])
 
 
     const onPurchase = () => {

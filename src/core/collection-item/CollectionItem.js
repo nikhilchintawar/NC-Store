@@ -13,7 +13,7 @@ import SignInModal from '../../user/signin-modal/SignInModal';
 const CollectionItem = ({product, match}) => {
 
     const [category, setCategory] = useState('');
-    const [isSignedIn, setIsSignedIn] = useState(false)
+    const [isSignedIn, setIsSignedIn] = useState(isAuthenticated() ? true : false)
 
     const productName = product ? product.name : "coding Ninja"
     const productDescription = product ? product.description : "coding Ninja description"
@@ -24,22 +24,23 @@ const CollectionItem = ({product, match}) => {
 
     const toggleIsSignedIn = () => setIsSignedIn(!isSignedIn)
 
-    const getCategory = () => {
-        return fetch(`${product.category}`, {
-            method: "GET"
-        })
-        .then(response => response.json())
-        .then(data => setCategory(data))
-        .catch(error => console.log(error))
-    }
 
     useEffect(() => {
+        const getCategory = async () => {
+            return fetch(`${product.category}`, {
+                method: "GET"
+            })
+            .then(response => response.json())
+            .then(data => setCategory(data))
+            .catch(error => console.log(error))
+        }
+
         getCategory()
-    }, [])
+    }, [product])
 
     const addToCart = () => {
         if(isAuthenticated()){
-            addItemToCart(product)      
+            addItemToCart(product)    
         }else{
            console.log('please sign in.')
         }
@@ -50,7 +51,7 @@ const CollectionItem = ({product, match}) => {
         <div className='collection-item'>
             {/* <Link to={`${match.path}/${category.name}`} className="category">{category.name}</Link> */}
             {
-                isSignedIn && <Modal><div className="signin-modal"><SignInModal toggleModal={toggleIsSignedIn} /></div></Modal>
+                !isSignedIn && <Modal><div className="signin-modal"><SignInModal toggleIsSignedIn={toggleIsSignedIn} /></div></Modal>
             }
             <div className="category">{category.name}</div>
             <div

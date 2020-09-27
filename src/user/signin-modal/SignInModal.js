@@ -8,7 +8,7 @@ import CustomButton from '../../components/custom-button/CustomButton';
 import { ShowToastMessage } from '../utils/utils';
 
 
-const SignInModal = ({toggleModal}) => {
+const SignInModal = ({toggleIsSignedIn}) => {
 
     const [values, setValues] = useState({
         name: "",
@@ -39,7 +39,7 @@ const SignInModal = ({toggleModal}) => {
                 // let sessionToken = data.token
                 authenticate(data, () => {
                     console.log("token added");
-                    toggleModal()
+                    toggleIsSignedIn()
                     setValues({
                         ...values,
                         success: true,
@@ -82,7 +82,7 @@ const SignInModal = ({toggleModal}) => {
                         />
                         <div className="modal-footer">
                             <CustomButton onClick={handleSubmit}>SIGN IN</CustomButton>
-                            <CustomButton onClick={toggleModal}>CLOSE</CustomButton>
+                            <CustomButton onClick={toggleIsSignedIn}>CLOSE</CustomButton>
                         </div>
                     </form>
                 </div>
